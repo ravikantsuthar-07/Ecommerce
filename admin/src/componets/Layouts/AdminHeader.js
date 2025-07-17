@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom'
 
 const AdminHeader = () => {
     const handleLogout = async () => {}
+    
+    
+    const handleClick = () => {
+        alert(window.innerWidth)
+        const isMobile = window.innerWidth <= 768;  
+    };
     return (
         <header id="header" className="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered">
             <div className="navbar-nav-wrap">
@@ -13,9 +19,9 @@ const AdminHeader = () => {
                     </button>
                 </div>
 
-                <div className="navbar-nav-wrap-content-right">
+                <div className="navbar-nav-wrap-content-right" onClick={handleClick}>
                     <ul className="navbar-nav align-items-center flex-row">
-                        <li className="nav-item mr-0">
+                        <li className="nav-item mr-0" >
                             <div className="hs-unfold">
                                 <div className="p-2">
                                     <div className="topbar-text dropdown disable-autohide text-capitalize">
@@ -73,7 +79,7 @@ const AdminHeader = () => {
                                         </div>
                                         <div className="avatar avatar-sm avatar-circle">
                                             <img className="avatar-img" src="https://admin.binjalfarm.com/storage/app/public/admin/2025-03-06-67c99d61a0080.png" alt="Logo" />
-                                                <span className="avatar-status avatar-sm-status avatar-status-success"></span>
+                                            <span className="avatar-status avatar-sm-status avatar-status-success"></span>
                                         </div>
                                     </div>
                                 </a>
@@ -109,7 +115,7 @@ const AdminHeader = () => {
                 </div>
             </div>
         </header>
-        
+
     )
 }
 

@@ -3,7 +3,7 @@ import authModel from "../Models/authModel.js";
 import JWT from 'jsonwebtoken'
 export const registerAuthController = async (req, res) => {
     try {
-        
+
         const { name, mobile, email, password } = req.body;
         if (!name) {
             return res.status(400).send({
@@ -32,7 +32,7 @@ export const registerAuthController = async (req, res) => {
                 message: 'Password is Required!..'
             });
         }
-        
+
         const existUser = await authModel.find({ email });
         console.log(existUser);
         if (existUser.length !== 0) {
@@ -63,7 +63,7 @@ export const registerAuthController = async (req, res) => {
 
 export const loginAuthController = async (req, res) => {
     try {
-        
+
         const { email, password } = req.body;
         if (!email) {
             return res.status(400).send({
@@ -71,14 +71,14 @@ export const loginAuthController = async (req, res) => {
                 message: 'Email is Required'
             });
         }
-        
+
         if (!password) {
             return res.status(400).send({
                 success: false,
                 message: 'Password is Required!...',
             });
         }
-        
+
         const user = await authModel.find({ email });
         if (!user) {
             return res.status(403).send({
@@ -89,6 +89,11 @@ export const loginAuthController = async (req, res) => {
             const match = await comparePassword(password, user[0].password);
             if (match) {
                 const token = await JWT.sign({ _id: user[0]._id }, process.env.JWT_TOKEN, { expiresIn: '5d' });
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    sameSite: 'lax',
+                    secure: false // true in production with HTTPS
+                })
                 return res.status(200).send({
                     success: true,
                     message: 'Login Suceesfully',
@@ -113,9 +118,9 @@ export const loginAuthController = async (req, res) => {
 }
 
 export const userAuthController = (req, res) => {
-    return res.status(200).send({success: true})
+    return res.status(200).send({ success: true })
 }
 
 export const adminAuthController = (req, res) => {
-    return res.status(200).send({success: true})
+    return res.status(200).send({ success: true })
 }
