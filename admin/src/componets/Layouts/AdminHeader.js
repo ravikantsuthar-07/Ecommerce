@@ -1,25 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AdminHeader = () => {
-    const handleLogout = async () => {}
-    
-    
-    const handleClick = () => {
-        alert(window.innerWidth)
-        const isMobile = window.innerWidth <= 768;  
-    };
+const AdminHeader = ({isOpen, setIsOpen, handleClick}) => {
+    const handleLogout = async () => { }
+
+
+
     return (
         <header id="header" className="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered">
             <div className="navbar-nav-wrap">
                 <div className="navbar-nav-wrap-content-left d-xl-none">
-                    <button type="button" className="js-navbar-vertical-aside-toggle-invoker close mr-3">
+                    <button type="button" onClick={handleClick} className="js-navbar-vertical-aside-toggle-invoker close mr-3">
                         <i className="tio-first-page navbar-vertical-aside-toggle-short-align" data-toggle="tooltip" data-placement="right" title="" data-original-title="Collapse"></i>
                         <i className="tio-last-page navbar-vertical-aside-toggle-full-align" data-template="<div className=&quot;tooltip d-none d-sm-block&quot; role=&quot;tooltip&quot;><div className=&quot;arrow&quot;></div><div className=&quot;tooltip-inner&quot;></div></div>" data-toggle="tooltip" data-placement="right" title="" data-original-title="Expand"></i>
                     </button>
                 </div>
 
-                <div className="navbar-nav-wrap-content-right" onClick={handleClick}>
+                <div className="navbar-nav-wrap-content-right" >
                     <ul className="navbar-nav align-items-center flex-row">
                         <li className="nav-item mr-0" >
                             <div className="hs-unfold">
@@ -84,7 +81,7 @@ const AdminHeader = () => {
                                     </div>
                                 </a>
 
-                                <div id="accountNavbarDropdown" className="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu navbar-dropdown-account w-16rem hs-unfold-content-initialized hs-unfold-css-animation animated hs-unfold-hidden" data-hs-target-height="188.375" data-hs-unfold-content="" data-hs-unfold-content-animation-in="slideInUp" data-hs-unfold-content-animation-out="fadeOut" style={{animationDuration: "300ms"}}>
+                                <div id="accountNavbarDropdown" className="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu navbar-dropdown-account w-16rem hs-unfold-content-initialized hs-unfold-css-animation animated hs-unfold-hidden" data-hs-target-height="188.375" data-hs-unfold-content="" data-hs-unfold-content-animation-in="slideInUp" data-hs-unfold-content-animation-out="fadeOut" style={{ animationDuration: "300ms" }}>
                                     <div className="dropdown-item-text">
                                         <div className="media align-items-center">
                                             <div className="avatar avatar-sm avatar-circle mr-2">

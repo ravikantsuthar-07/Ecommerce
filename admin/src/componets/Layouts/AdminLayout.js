@@ -9,32 +9,49 @@ const AdminLayout = ({ children, title, keywords, author, description }) => {
     const [skin, setSkin] = useState(localStorage.getItem('skin') || 'default');
     const [sidebarMode, setSidebarMode] = useState(localStorage.getItem('sidebarMode') || 'default');
     const [headerMode, setHeaderMode] = useState(localStorage.getItem('headerMode') || 'default');
+    const [isOpen, setIsOpen] = useState(false);
+
+    // Toggle POS dropdown
+    const handleDropdownToggle = () => setIsOpen((prev) => !prev);
+
+    // Sidebar toggle
+    const handleClick = () => {
+        const isMobile = window.innerWidth <= 768;
+        console.log("Window width:", window.innerWidth);
+
+        if (isMobile) {
+            // Toggle between closed and default for mobile
+            setSidebarMode((prev) => (prev === 'closed' ? 'default' : 'closed'));
+        } else {
+            // Toggle between mini and default for desktop
+            setSidebarMode((prev) => (prev === 'mini' ? 'default' : 'mini'));
+        }
+    };
 
     useEffect(() => {
-        document.body.classList.add('footer-offset', 'has-navbar-vertical-aside');
+        const body = document.body;
+        body.classList.remove(
+            'navbar-vertical-aside-mini-mode',
+            'navbar-vertical-aside-closed-mode',
+            'header-double'
+        );
 
-        // Skin based styling
-        if (skin === 'navbar-dark') {
-            document.body.classList.add('navbar-dark');
-        } else {
-            document.body.classList.remove('navbar-dark');
-        }
-
-        // Sidebar mode
         if (sidebarMode === 'mini') {
-            document.body.classList.add('navbar-vertical-aside-mini-mode');
-        } else {
-            document.body.classList.remove('navbar-vertical-aside-mini-mode');
+            body.classList.add('navbar-vertical-aside-mini-mode');
+        } else if (sidebarMode === 'closed') {
+            body.classList.add('navbar-vertical-aside-closed-mode');
         }
 
-        // Header mode adjustments
         if (headerMode === 'double') {
-            document.body.classList.add('header-double');
-        } else {
-            document.body.classList.remove('header-double');
+            body.classList.add('header-double');
         }
 
-        // Save to localStorage
+        if (skin === 'navbar-dark') {
+            body.classList.add('navbar-dark');
+        } else {
+            body.classList.remove('navbar-dark');
+        }
+
         localStorage.setItem('skin', skin);
         localStorage.setItem('sidebarMode', sidebarMode);
         localStorage.setItem('headerMode', headerMode);
@@ -52,6 +69,9 @@ const AdminLayout = ({ children, title, keywords, author, description }) => {
 
             {/* Header */}
             <AdminHeader
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                handleClick={handleClick}
                 skin={skin}
                 setSkin={setSkin}
                 headerMode={headerMode}
@@ -59,10 +79,17 @@ const AdminLayout = ({ children, title, keywords, author, description }) => {
             />
 
             {/* Sidebar */}
-            <AdminSiderBar sidebarMode={sidebarMode} setSidebarMode={setSidebarMode} />
+            <AdminSiderBar
+                handleClick={handleClick}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                handleDropdownToggle={handleDropdownToggle}
+                sidebarMode={sidebarMode}
+                setSidebarMode={setSidebarMode}
+            />
 
             {/* Main Content */}
-            <main id='content' role='main' className="main pointer-event">
+            <main id="content" role="main" className="main pointer-event">
                 <Toaster />
                 {children}
                 <Adminfooter />

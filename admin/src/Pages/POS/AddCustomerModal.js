@@ -17,13 +17,13 @@ const AddCustomerModal = () => {
                                 <div className="col-12 col-lg-6">
                                     <div className="form-group">
                                         <label className="input-label">First name <span className="input-label-secondary text-danger">*</span></label>
-                                        <input type="text" name="f_name" className="form-control" value="" placeholder="{{ translate('First name') }}" required="" />
+                                        <input type="text" name="f_name" className="form-control" value="" placeholder="First name" required="" />
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
                                     <div className="form-group">
                                         <label className="input-label">Last name <span className="input-label-secondary text-danger">*</span></label>
-                                        <input type="text" name="l_name" className="form-control" value="" placeholder="{{ translate('Last name') }}" required="" />
+                                        <input type="text" name="l_name" className="form-control" value="" placeholder="Last name" required="" />
                                     </div>
                                 </div>
                             </div>
@@ -31,13 +31,13 @@ const AddCustomerModal = () => {
                                 <div className="col-12 col-lg-6">
                                     <div className="form-group">
                                         <label className="input-label">Email<span className="input-label-secondary text-danger">*</span></label>
-                                        <input type="email" name="email" className="form-control" value="" placeholder="{{ translate('Ex : ex@example.com') }}" required="" />
+                                        <input type="email" name="email" className="form-control" value="" placeholder="Ex : ex@example.com" required="" />
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-6">
                                     <div className="form-group">
                                         <label className="input-label">Phone (With country code)<span className="input-label-secondary text-danger">*</span></label>
-                                        <input type="text" name="phone" className="form-control" value="" placeholder="{{ translate('Phone') }}" required="" />
+                                        <input type="text" name="phone" className="form-control" value="" placeholder="Phone" required="" />
                                     </div>
                                 </div>
                             </div>
