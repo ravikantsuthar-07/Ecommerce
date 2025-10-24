@@ -9,53 +9,66 @@ const AdminLayout = ({ children, title, keywords, author, description }) => {
     const [skin, setSkin] = useState(localStorage.getItem('skin') || 'default');
     const [sidebarMode, setSidebarMode] = useState(localStorage.getItem('sidebarMode') || 'default');
     const [headerMode, setHeaderMode] = useState(localStorage.getItem('headerMode') || 'default');
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(null);
 
-    // Toggle POS dropdown
-    const handleDropdownToggle = () => setIsOpen((prev) => !prev);
+    const handleDropdownToggle = (menu) => {
+        setIsOpen((prev) => (prev === menu ? null : menu));
+    };
 
-    // Sidebar toggle
     const handleClick = () => {
         const isMobile = window.innerWidth <= 768;
         console.log("Window width:", window.innerWidth);
 
         if (isMobile) {
-            // Toggle between closed and default for mobile
             setSidebarMode((prev) => (prev === 'closed' ? 'default' : 'closed'));
         } else {
-            // Toggle between mini and default for desktop
             setSidebarMode((prev) => (prev === 'mini' ? 'default' : 'mini'));
         }
     };
 
     useEffect(() => {
         const body = document.body;
-        body.classList.remove(
-            'navbar-vertical-aside-mini-mode',
-            'navbar-vertical-aside-closed-mode',
-            'header-double'
-        );
+        const baseClasses = [
+            'footer-offset',
+            'has-navbar-vertical-aside',
+            'navbar-vertical-aside-show-xl',
+        ];
 
-        if (sidebarMode === 'mini') {
-            body.classList.add('navbar-vertical-aside-mini-mode');
-        } else if (sidebarMode === 'closed') {
-            body.classList.add('navbar-vertical-aside-closed-mode');
+        body.className = '';
+
+        body.classList.add(...baseClasses);
+
+        const isMobile = window.innerWidth < 992;
+
+        if (isMobile) {
+            if (sidebarMode === 'closed') {
+                body.classList.add('navbar-vertical-aside-closed-mode');
+            }
+        } else {
+            if (sidebarMode === 'mini') {
+                body.classList.add('navbar-vertical-aside-mini-mode');
+            } else if (sidebarMode === 'closed') {
+                body.classList.add('navbar-vertical-aside-closed-mode');
+            }
         }
 
+        // Header mode
         if (headerMode === 'double') {
             body.classList.add('header-double');
         }
 
+        // Skin mode
         if (skin === 'navbar-dark') {
             body.classList.add('navbar-dark');
-        } else {
-            body.classList.remove('navbar-dark');
         }
 
+        // Save preferences
         localStorage.setItem('skin', skin);
         localStorage.setItem('sidebarMode', sidebarMode);
         localStorage.setItem('headerMode', headerMode);
     }, [skin, sidebarMode, headerMode]);
+
+
 
     return (
         <>

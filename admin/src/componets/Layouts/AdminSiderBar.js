@@ -107,13 +107,14 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Orders">
+                                <Link onClick={() => handleDropdownToggle("orders")} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Orders">
                                     <i className="tio-shopping-cart nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                         Orders
                                     </span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'orders' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'orders' ? "block" : "none" }}>
                                     <li className="nav-item ">
                                         <Link className="nav-link" href="/admin/orders/list/all" title="All orders">
                                             <span className="tio-circle nav-indicator-icon"></span>
@@ -223,11 +224,12 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Category setup">
+                                <Link onClick={() => handleDropdownToggle("category")} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Category setup">
                                     <i className="tio-category nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Category setup</span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'category' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'category' ? "block" : "none" }}>
                                     <li className="nav-item ">
                                         <Link className="nav-link " href="/admin/category/add" title="Categories">
                                             <span className="tio-circle nav-indicator-icon"></span>
@@ -245,11 +247,12 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Product setup">
+                                <Link onClick={() => handleDropdownToggle('product')} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Product setup">
                                     <i className="tio-premium-outlined nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Product setup</span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'product' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'product' ? "block" : "none" }}>
 
                                     <li className="nav-item ">
                                         <Link className="nav-link" href="/admin/attribute/add-new" title="Product attribute">
@@ -375,11 +378,12 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Analytics">
+                                <Link onClick={() => handleDropdownToggle('analytics')} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Analytics">
                                     <i className="tio-chart-donut-2 nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Analytics</span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'analytics' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'analytics' ? "block" : "none" }}>
                                     <li className="nav-item ">
                                         <Link className="nav-link " href="/admin/analytics/keyword-search?date_range=today&amp;date_range_2=today" title="Keyword-search">
                                             <span className="tio-circle nav-indicator-icon"></span>
@@ -411,13 +415,14 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Customer Wallet">
+                                <Link onClick={() => handleDropdownToggle('customer')} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Customer Wallet">
                                     <i className="tio-wallet-outlined nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                         Customer Wallet
                                     </span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'customer' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'customer' ? "block" : "none" }}>
 
                                     <li className="nav-item ">
                                         <Link className="nav-link" href="/admin/customer/wallet/add-fund" title="Add fund">
@@ -449,13 +454,14 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Customer Loyalty Point">
+                                <Link onClick={() => handleDropdownToggle('loyalty')} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Customer Loyalty Point">
                                     <i className="tio-medal nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                         Customer Loyalty Point
                                     </span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'loyalty' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'loyalty' ? "block" : "none" }}>
 
                                     <li className="nav-item ">
                                         <Link className="nav-link" href="/admin/customer/loyalty-point/report" title="Report">
@@ -487,13 +493,14 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Deliveryman">
+                                <Link onClick={() => handleDropdownToggle('deliveryman')} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Deliveryman">
                                     <i className="tio-user nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                         Deliveryman
                                     </span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'deliveryman' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'deliveryman' ? "block" : "none" }}>
 
                                     <li className="nav-item ">
                                         <Link className="nav-link" href="/admin/delivery-man/list" title="List">
@@ -534,13 +541,14 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                                 </ul>
                             </li>
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Employees">
+                                <Link onClick={() => handleDropdownToggle('employees')} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Employees">
                                     <i className="tio-incognito nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                                         Employees
                                     </span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen === 'employees' ? "show" : ""}`}
+                                    style={{ display: isOpen === 'employees' ? "block" : "none" }}>
 
                                     <li className="nav-item ">
                                         <Link className="nav-link" href="/admin/custom-role/create" title="Employee Role Setup">
@@ -582,11 +590,12 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Branch Setup">
+                                <Link onClick={handleDropdownToggle} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Branch Setup">
                                     <i className="tio-shop nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Branch Setup</span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen ? "show" : ""}`}
+                                    style={{ display: isOpen ? "block" : "none" }}>
                                     <li className="nav-item ">
                                         <Link className="nav-link " href="/admin/branch/add-new" title="Add New">
                                             <span className="tio-circle nav-indicator-icon"></span>
@@ -603,11 +612,12 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Blog Setup">
+                                <Link onClick={handleDropdownToggle} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Blog Setup">
                                     <i className="tio-notebook-bookmarked nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Blog Setup</span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen ? "show" : ""}`}
+                                    style={{ display: isOpen ? "block" : "none" }}>
                                     <li className="nav-item ">
                                         <Link className="nav-link " href="/admin/blog/add-new" title="Add New">
                                             <span className="tio-circle nav-indicator-icon"></span>
@@ -627,7 +637,8 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                                     <i className="tio-website nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">3rd Party</span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen ? "show" : ""}`}
+                                    style={{ display: isOpen ? "block" : "none" }}>
                                     <li className="nav-item ">
 
                                         <Link className="nav-link " href="/admin/business-settings/web-app/payment-method" title="3rd party configuration">
@@ -647,11 +658,12 @@ const AdminSiderBar = ({ isOpen, handleClick, handleDropdownToggle }) => {
                             </li>
 
                             <li className="navbar-vertical-aside-has-menu">
-                                <Link className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Pages &amp; Media">
+                                <Link onClick={handleDropdownToggle} className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:" title="Pages &amp; Media">
                                     <i className="tio-pages-outlined nav-icon"></i>
                                     <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Pages &amp; Media</span>
                                 </Link>
-                                <ul className="js-navbar-vertical-aside-submenu nav nav-sub" style={{ display: "none" }}>
+                                <ul className={`js-navbar-vertical-aside-submenu nav nav-sub ${isOpen ? "show" : ""}`}
+                                    style={{ display: isOpen ? "block" : "none" }}>
                                     <li className="nav-item mt-0 ">
                                         <Link className="nav-link" href="/admin/business-settings/page-setup/about-us" title="Page Setup">
                                             <span className="tio-circle nav-indicator-icon"></span>
