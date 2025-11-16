@@ -29,13 +29,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-router.get(`/getProducts`, getProductController);
 router.get(`/getAdminProducts`, requireSignIn, isAdmin, getAdminProductController);
 router.get(`/getLimitProduct`, requireSignIn, isAdmin, getLimitProductController);
-router.get(`/getSingleProduct/:id`, getSingleProductController);
 router.post(`/addNewProduct`, requireSignIn, isAdmin, upload.array('image', 10), addNewProductController);
 router.put(`/updateStatus/:id`, requireSignIn, isAdmin, updateStatusProductController);
 router.put(`/update/:id`, requireSignIn, isAdmin, upload.array('image', 10), updateProductController);
 router.delete(`/deleteProduct/:id`, requireSignIn, isAdmin, deleteProductController);
 
+router.get(`/getProducts`, getProductController);
+router.get(`/getSingleProduct/:id`, getSingleProductController);
 export default router

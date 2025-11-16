@@ -1,19 +1,17 @@
-import React from 'react'
-import NavBar from './NavBar'
-import Header from './Header'
+import React from "react";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 const UserLayout = ({ children }) => {
-    return (
-        <div className="min-h-screen bg-gray-50">
-            <Header />
-            <NavBar />
-            {/* Main content here */}
-            <div className="p-6 text-center text-gray-700">
-                <h1 className="text-2xl font-bold">Welcome to Kerala Spices Online</h1>
-            </div>
-        </div>
+  return (
+    <div className="min-vh-100 d-flex flex-column bg-light text-dark">
+      <NavBar />
 
-    )
-}
+      <main className=" container-lg flex-grow-1">{children}</main>
 
-export default UserLayout
+      <Footer />
+    </div>
+  );
+};
+
+export default UserLayout;

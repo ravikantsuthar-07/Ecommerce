@@ -3,7 +3,7 @@ import subCategoryModel from "../Models/subCategoryModel.js";
 
 export const getCategoryController = async (req, res) => {
     try {
-        const category = await categoryModel.find({ status: 1 });
+        const category = await categoryModel.find({ status: 1, level: 0 });
         return res.status(200).send({
             success: true,
             message: `Getting Category Successfully`,
@@ -18,9 +18,28 @@ export const getCategoryController = async (req, res) => {
     }
 }
 
+export const gettingSubCategoryController = async (req, res) => {
+    try {
+        const { parentId } = req.params;
+        const id = parentId.split('-').pop();
+        const category = await categoryModel.find({ parentId: id, status: 1, level: 1}).populate("parentId", "name");;
+        return res.status(200).send({
+            success: true,
+            message: `Getting Sub Category Successfully`,
+            category
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: 'Error in Getting Sub Categorys',
+            error
+        });
+    }
+}
+
 export const getAdminCategoryController = async (req, res) => {
     try {
-        const category = await categoryModel.find();
+        const category = await categoryModel.find({ level: 0 });
         return res.status(200).send({
             success: true,
             message: `Getting Category Successfully`,
@@ -62,11 +81,18 @@ export const getSingleCategoryController = async (req, res) => {
 
 export const addNewCategoryController = async (req, res) => {
     try {
-
-        const { name, position, priority, meta_keywords, meta_description } = req.body;
+        const { name, parentId } = req.body;
         const image = req.file;
-
-        const category = await categoryModel({ name, position, image: image.filename, priority, meta_keywords, meta_description }).save();
+        let level = 0;
+        if (parentId) {
+            level = 1;
+        }
+        const category = await categoryModel({
+            name,
+            image: image.filename,
+            parentId,
+            level
+        }).save();
 
         return res.status(201).send({
             success: true,
@@ -170,161 +196,22 @@ export const getTotalCategoryController = async (req, res) => {
     }
 }
 
-export const getSubCategoryController = async (req, res) => {
-    try {
-        const { parent_id } = req.params;
-        const category = await subCategoryModel.find({ parent_id: { $eq: parent_id } }).populate("parent_id", "name");
-        return res.status(200).send({
-            success: true,
-            message: `Sub Category Getting Successfully`,
-            category
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: `Error in Getting Sub Category`,
-            error
-        });
-    }
-}
-
-
 export const getAdminSubCategoryController = async (req, res) => {
     try {
-        const { parent_id } = req.params;
-        const category = await subCategoryModel.find({ parent_id: { $eq: parent_id } }).populate("parent_id", "name");
+        const categories = await categoryModel
+            .find({ level: 1 })
+            .populate("parentId", "name"); // <-- FIXED
+
         return res.status(200).send({
             success: true,
-            message: `Sub Category Getting Successfully`,
-            category
+            message: "Sub Categories fetched successfully",
+            categories,
         });
     } catch (error) {
         return res.status(500).send({
             success: false,
-            message: `Error in Getting Sub Category`,
-            error
+            message: "Error in getting sub categories",
+            error,
         });
     }
-}
-
-export const getSingleSubCategoryController = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const category = await subCategoryModel.findById(id).populate("parent_id", "name");
-        return res.status(200).send({
-            success: true,
-            message: `Single Category Getting Successfully`,
-            category
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: `Error in Getting Single Sub Category`,
-            error
-        });
-    }
-}
-
-
-export const addNewSubCategoryController = async (req, res) => {
-    try {
-        const { name, parent_id, position, priority, meta_keywords, meta_description } = req.body;
-        const image = req.file;
-        const category = await subCategoryModel({ name, parent_id, position, image: image.filename, priority, meta_description, meta_keywords }).save();
-        return res.status(201).send({
-            success: true,
-            message: `Sub Category is Added Successfully`,
-            category
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: 'Error in Add A New Sub Category',
-            error
-        });
-    }
-}
-
-
-export const updateStatusSubCategoryController = async (req, res) => {
-    try {
-        const { status } = req.body;
-        if (status) {
-            const category = await subCategoryModel.findByIdAndUpdate(id, { status: 0 })
-            return res.status(200).send({
-                success: true,
-                message: `Category is DeActivate`,
-                category
-            });
-        } else {
-            const category = await subCategoryModel.findByIdAndUpdate(id, { status: 1 }, { new: true })
-            return res.status(200).send({
-                success: true,
-                message: `Category is Activate`,
-                category
-            });
-        }
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: `Error in updating Status of Category`,
-            error
-        });
-    }
-}
-
-export const updateSubCategoryController = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { name, parent_id, position, priority, meta_keywords, meta_description } = req.body;
-        const image = req.files;
-        const category = await subCategoryModel.findByIdAndUpdate(id, { name, parent_id, position, image: image.filename, priority, meta_description, meta_keywords }, { new: true }).populate('parent_id', "name");
-        return res.status(304).send({
-            success: true,
-            message: `Category Updated Successfully`,
-            category
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: `Error in updating Category`,
-            error
-        });
-    }
-}
-
-
-export const deleteSubCategoryController = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const category = await subCategoryModel.findByIdAndDelete(id);
-        return res.status(200).send({
-            success: true,
-            message: `Category Deleted Successfully`,
-            category
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: `Error in Deleting Category`,
-            error
-        });
-    }
-}
-
-export const getTotalSubCategoryController = async (req, res) => {
-    try {
-        const numberOfCategory = await subCategoryModel.countDocuments({})
-        return res.status(200).send({
-            success: true,
-            message: `Total Number of Category is Getting Successfully`,
-            numberOfCategory
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: 'Error in Getting Numbers of Category',
-            error
-        });
-    }
-}
+};
